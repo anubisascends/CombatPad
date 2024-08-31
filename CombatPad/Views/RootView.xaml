@@ -1,0 +1,170 @@
+﻿<Window x:Class="CombatPad.Views.RootView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:CombatPad.Views" xmlns:controls="clr-namespace:WPF.JoshSmith.Controls;assembly=WPF.JoshSmith.Controls.DragCanvas" xmlns:classes="clr-namespace:CombatPad.Classes" xmlns:components="clr-namespace:CombatPad.Components"
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance local:RootView}"
+        Title="Combat Pad" Height="450" Width="800">
+    <Window.Resources>
+        <classes:CombatItemTypeToColor x:Key="typeToColor"/>
+        <classes:ColorToBrushConverter x:Key="colorToBrush"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Command="{Binding ViewModel.LoadCommand}"/>
+                <Separator />
+                <MenuItem Header="_Save" Command="{Binding ViewModel.SaveCommand}"/>
+                <MenuItem Header="Save _As..." Command="{Binding ViewModel.SaveAsCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <ToolBarPanel Grid.Row="1">
+            <ToolBarTray>
+                <ToolBar>
+                    <Label>Combat Items:</Label>
+                    <Button Command="{Binding ViewModel.AddPlayerCharacterCommand}" Foreground="#FF3C5D8A" ToolTip="Player">
+                        <icon:RPGAwesome Kind="Player"/>
+                    </Button>
+                    <Button Command="{Binding ViewModel.AddNonPlayerCharacterCommand}" Foreground="#FF84201F" ToolTip="Non-Player Character">
+                        <icon:PackIconRPGAwesome Kind="MonsterSkull" />
+                    </Button>
+                    <Button Command="{Binding ViewModel.AddHazardCommand}" Foreground="#FF937F7F" ToolTip="Hazard">
+                        <icon:PackIconRPGAwesome Kind="Acid"/>
+                    </Button>
+                    <Button Command="{Binding ViewModel.AddConditionCommand}" Foreground="#FF882324" ToolTip="Condition">
+                        <icon:GameIcons Kind="CondorEmblem"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar>
+                    <Label>Markers:</Label>
+                    <Button Command="{Binding ViewModel.AddMarkerCommand}" CommandParameter="Red">
+                        <Ellipse Fill="Red" Width="16" Height="16"/>
+                    </Button>
+                    <Button Command="{Binding ViewModel.AddMarkerCommand}" CommandParameter="Blue">
+                        <Ellipse Fill="Blue" Width="16" Height="16"/>
+                    </Button>
+                    <Button Command="{Binding ViewModel.AddMarkerCommand}" CommandParameter="Green">
+                        <Ellipse Fill="Green" Width="16" Height="16"/>
+                    </Button>
+                    <Button Command="{Binding ViewModel.AddMarkerCommand}" CommandParameter="Yellow">
+                        <Ellipse Fill="Yellow" Width="16" Height="16"/>
+                    </Button>
+                    <Button Command="{Binding ViewModel.AddMarkerCommand}" CommandParameter="Black">
+                        <Ellipse Fill="Black" Width="16" Height="16"/>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            <ToolBarTray>
+                <ToolBar>
+                    <Label>Selected Item:</Label>
+                    <TextBox Text="{Binding ViewModel.SelectedCombatItem.Label, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+                    <Button Foreground="Red" Command="{Binding ViewModel.RemoveCombatItemCommand}">
+                        <icon:FontAwesome Kind="XSolid"/>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+        </ToolBarPanel>
+
+        <Grid Grid.Row="2">
+            <Grid Background="#FFEAD8C1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="43.5" />
+                    <ColumnDefinition Width="6.5"/>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Column="2" Grid.ColumnSpan="5">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#FF350505" Offset="0"/>
+                            <GradientStop Color="#FF6A171A" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Label Grid.Column="2" HorizontalAlignment="Center" Foreground="#FFEAD8C1">Initiative</Label>
+                <Label Grid.Column="3" Foreground="#FFEAD8C1" VerticalAlignment="Center">
+                    <Label.LayoutTransform>
+                        <RotateTransform Angle="90" />
+                    </Label.LayoutTransform>
+                    <Label.Content>Delay</Label.Content>
+                </Label>
+                <Label Grid.Column="5" HorizontalAlignment="Center" Foreground="#FFEAD8C1">Dying</Label>
+                <Label Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">1</Label>
+                <Label Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">2</Label>
+                <Label Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">3</Label>
+                <Label Grid.Column="7" HorizontalAlignment="Center">Notes</Label>
+
+                <Rectangle Grid.RowSpan="2" Grid.Column="0" Stroke="Black" Grid.ColumnSpan="2"/>
+                <Rectangle Grid.Row="1" Grid.Column="2" Stroke="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="3" Stroke="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="4" Stroke="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="5" Stroke="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="6" Stroke="Black"/>
+                <Rectangle Grid.RowSpan="2" Grid.Column="7" Stroke="Black"/>
+                <Rectangle Grid.RowSpan="2" Grid.Column="8" Stroke="Black"/>
+
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.Markers}" d:ItemsSource="{d:SampleData ItemCount=1}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <icon:PackIconEntypo Kind="ArrowBoldRight" Height="24" Width="24" Foreground="{Binding Color, Converter={StaticResource colorToBrush}}"/>
+                                <TextBlock Foreground="BlanchedAlmond" Text="{Binding Label}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <components:MyDragCanvas SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.SelectedCombatItem, Mode=TwoWay}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                
+                <ItemsControl Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="5" ItemsSource="{Binding ViewModel.Items}" d:ItemsSource="{d:SampleData ItemCount=1}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <components:MyDragCanvas SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.SelectedCombatItem, Mode=TwoWay}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Tag="{Binding}">
+                                <Rectangle Width="250" Height="35" RadiusX="15" RadiusY="15" StrokeThickness="3" 
+                                           Stroke="{Binding Type, Converter={StaticResource typeToColor}}" 
+                                           Fill="#FFEAD8C1"/>
+                                <Rectangle Width="50" RadiusX="15" RadiusY="15" HorizontalAlignment="Right" 
+                                           Fill="{Binding Type, Converter={StaticResource typeToColor}}"/>
+                                <Rectangle Width="25" HorizontalAlignment="Right" Margin="40,3" Fill="#FFEAD8C1"/>
+                                <TextBlock Text="{Binding Label}" VerticalAlignment="Center" Margin="5,0,40,0"/>
+                                <TextBlock Text="{Binding Counter}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                           Width="50" TextAlignment="Center" Foreground="BlanchedAlmond"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <InkCanvas Grid.Column="7" Grid.RowSpan="2" Background="Transparent" Strokes="{Binding ViewModel.NoteStrokes}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

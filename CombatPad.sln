@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CombatPad", "CombatPad\CombatPad.csproj", "{FCBBC15E-D6A0-4EB7-BFD9-61A94284E6BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCBBC15E-D6A0-4EB7-BFD9-61A94284E6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCBBC15E-D6A0-4EB7-BFD9-61A94284E6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCBBC15E-D6A0-4EB7-BFD9-61A94284E6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCBBC15E-D6A0-4EB7-BFD9-61A94284E6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76BCE1E6-3070-41DC-BA9E-0374C32CEE19}
+	EndGlobalSection
+EndGlobal
