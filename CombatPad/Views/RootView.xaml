@@ -7,6 +7,13 @@
         xmlns:local="clr-namespace:CombatPad.Views" xmlns:controls="clr-namespace:WPF.JoshSmith.Controls;assembly=WPF.JoshSmith.Controls.DragCanvas" xmlns:classes="clr-namespace:CombatPad.Classes" xmlns:components="clr-namespace:CombatPad.Components"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance local:RootView}"
         Title="Combat Pad" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ViewModel.NewCommand}" Key="N" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding ViewModel.LoadCommand}" Key="O" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding ViewModel.SaveCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding ViewModel.SaveAsCommand}" Key="S" Modifiers="Shift+Ctrl"/>
+        <KeyBinding Command="{Binding ViewModel.ImportCommand}" Key="I" Modifiers="Ctrl+Shift"/>
+    </Window.InputBindings>
     <Window.Resources>
         <classes:CombatItemTypeToColor x:Key="typeToColor"/>
         <classes:ColorToBrushConverter x:Key="colorToBrush"/>
@@ -49,17 +56,37 @@
 
         <Menu>
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="{Binding ViewModel.LoadCommand}"/>
+                <MenuItem Header="_New" Command="{Binding ViewModel.NewCommand}" InputGestureText="Ctrl+N">
+                    <MenuItem.Icon>
+                        <icon:PackIconModern Kind="New"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Open" Command="{Binding ViewModel.LoadCommand}" InputGestureText="Ctrl+O">
+                    <MenuItem.Icon>
+                        <icon:PackIconModern Kind="FolderOpen"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="_Save" Command="{Binding ViewModel.SaveCommand}"/>
-                <MenuItem Header="Save _As..." Command="{Binding ViewModel.SaveAsCommand}"/>
+                <MenuItem Header="_Import" Command="{Binding ViewModel.ImportCommand}" InputGestureText="Ctrl+Shift+I">
+                    <MenuItem.Icon>
+                        <icon:PackIconModern Kind="BookOpen"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                          
+                <Separator />
+                <MenuItem Header="_Save" Command="{Binding ViewModel.SaveCommand}" InputGestureText="Ctrl+S">
+                    <MenuItem.Icon>
+                        <icon:PackIconModern Kind="Save"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save _As..." Command="{Binding ViewModel.SaveAsCommand}" InputGestureText="Ctrl+Shift+S"/>
             </MenuItem>
         </Menu>
 
         <ToolBarPanel Grid.Row="1">
             <ToolBarTray>
                 <ToolBar>
-                    <Label>Combat Items:</Label>
+                    <Label>Initiative Items:</Label>
                     <Button Command="{Binding ViewModel.AddPlayerCharacterCommand}" Foreground="#FF3C5D8A" ToolTip="Player">
                         <icon:RPGAwesome Kind="Player"/>
                     </Button>

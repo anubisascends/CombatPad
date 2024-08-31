@@ -6,10 +6,8 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Ink;
 using System.Windows.Media;
@@ -151,6 +149,44 @@ namespace CombatPad.ViewModels
                     NoteStrokes = new StrokeCollection(stream);
                 }
             }
+        }
+
+        [RelayCommand]
+        private void Import()
+        {
+            var dlg = new OpenFileDialog
+            {
+                Title = "Please select a file to import...",
+                Filter = "Combat Pad Files|*.cbp"
+            };
+
+            if(dlg.ShowDialog() ?? false)
+            {
+                var document = Repository.Load(dlg.FileName);
+
+                foreach (var ci in document.CombatItems)
+                {
+                    Items.Add(ci);
+                }
+
+                foreach (var m in document.MarkerItems)
+                {
+                    Markers.Add(m);
+                }
+
+                using var stream = new MemoryStream(document.Strokes.ToArray());
+                var strokes = new StrokeCollection(stream);
+
+                NoteStrokes.Add(strokes);
+            }
+        }
+
+        [RelayCommand]
+        private void New()
+        {
+            Markers.Clear();
+            Items.Clear();
+            NoteStrokes.Clear();
         }
     }
 }
