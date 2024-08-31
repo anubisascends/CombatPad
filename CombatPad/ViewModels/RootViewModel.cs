@@ -6,6 +6,10 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
 using System.Windows.Ink;
 using System.Windows.Media;
@@ -91,7 +95,10 @@ namespace CombatPad.ViewModels
                 return;
             }
 
-            var document = new DocumentDto(Items, Markers, NoteStrokes);
+            using var stream = new MemoryStream();
+            NoteStrokes.Save(stream);
+
+            var document = new DocumentDto(Items, Markers, stream.ToArray());
             Repository.Save(document, SaveFilePath);
         }
 
@@ -138,7 +145,11 @@ namespace CombatPad.ViewModels
                     Markers.Add(m);
                 }
 
-                NoteStrokes = document.Strokes ?? new();
+                if (document.Strokes.Count() > 0)
+                {
+                    using var stream = new MemoryStream(document.Strokes.ToArray());
+                    NoteStrokes = new StrokeCollection(stream);
+                }
             }
         }
     }

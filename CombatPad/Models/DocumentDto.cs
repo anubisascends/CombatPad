@@ -2,5 +2,5 @@
 
 namespace CombatPad.Models
 {
-    public record struct DocumentDto(IEnumerable<CombatItem> CombatItems, IEnumerable<MarkerItem> MarkerItems, StrokeCollection Strokes);
+    public record struct DocumentDto(IEnumerable<CombatItem> CombatItems, IEnumerable<MarkerItem> MarkerItems, IEnumerable<byte> Strokes);
 }
