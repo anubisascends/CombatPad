@@ -10,6 +10,34 @@
     <Window.Resources>
         <classes:CombatItemTypeToColor x:Key="typeToColor"/>
         <classes:ColorToBrushConverter x:Key="colorToBrush"/>
+        <Style x:Key="Skulls" TargetType="Rectangle">
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <VisualBrush TileMode="Tile" Viewport="0,0,24,42"
+                                 ViewportUnits="Absolute" Stretch="None" Viewbox="0,0,1,1">
+                        <VisualBrush.Visual>
+                            <Grid>
+                                <icon:PackIconRPGAwesome Kind="Skull"/>
+                            </Grid>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Circle" TargetType="Rectangle">
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <VisualBrush TileMode="Tile" Viewport="0,0,24,42"
+                         ViewportUnits="Absolute" Stretch="None" Viewbox="0,0,1,1">
+                        <VisualBrush.Visual>
+                            <Grid>
+                                <icon:PackIconFontAwesome Kind="CircleSolid"/>
+                            </Grid>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -110,11 +138,16 @@
                     </Label.LayoutTransform>
                     <Label.Content>Delay</Label.Content>
                 </Label>
-                <Label Grid.Column="5" HorizontalAlignment="Center" Foreground="#FFEAD8C1">Dying</Label>
+                <Label Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="#FFEAD8C1">Dying</Label>
                 <Label Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">1</Label>
                 <Label Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">2</Label>
                 <Label Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">3</Label>
                 <Label Grid.Column="7" HorizontalAlignment="Center">Notes</Label>
+
+                <Rectangle Grid.Column="3" Grid.Row="1" Style="{StaticResource Circle}"/>
+                <Rectangle Grid.Column="4" Grid.Row="1" Style="{StaticResource Skulls}"/>
+                <Rectangle Grid.Column="5" Grid.Row="1" Style="{StaticResource Skulls}"/>
+                <Rectangle Grid.Column="6" Grid.Row="1" Style="{StaticResource Skulls}"/>
 
                 <Rectangle Grid.RowSpan="2" Grid.Column="0" Stroke="Black" Grid.ColumnSpan="2"/>
                 <Rectangle Grid.Row="1" Grid.Column="2" Stroke="Black"/>
