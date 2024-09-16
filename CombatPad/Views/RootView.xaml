@@ -133,7 +133,7 @@
         <Grid Grid.Row="2">
             <Grid Background="#FFEAD8C1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="43.5" />
+                    <ColumnDefinition Width="45" />
                     <ColumnDefinition Width="6.5"/>
                     <ColumnDefinition Width="250" />
                     <ColumnDefinition Width="25" />
@@ -141,7 +141,7 @@
                     <ColumnDefinition Width="25" />
                     <ColumnDefinition Width="25" />
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="45" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
