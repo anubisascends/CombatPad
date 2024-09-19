@@ -17,6 +17,7 @@
     <Window.Resources>
         <classes:CombatItemTypeToColor x:Key="typeToColor"/>
         <classes:ColorToBrushConverter x:Key="colorToBrush"/>
+        <classes:CombatItemShortNameConverter x:Key="shortName"/>
         <Style x:Key="Skulls" TargetType="Rectangle">
             <Setter Property="Fill">
                 <Setter.Value>
@@ -211,13 +212,13 @@
                         <DataTemplate>
                             <Grid Tag="{Binding}">
                                 <Rectangle Width="250" Height="35" RadiusX="15" RadiusY="15" StrokeThickness="3" 
-                                           Stroke="{Binding Type, Converter={StaticResource typeToColor}}" 
+                                           Stroke="{Binding Converter={StaticResource typeToColor}}" 
                                            Fill="#FFEAD8C1"/>
                                 <Rectangle Width="50" RadiusX="15" RadiusY="15" HorizontalAlignment="Right" 
-                                           Fill="{Binding Type, Converter={StaticResource typeToColor}}"/>
+                                           Fill="{Binding Converter={StaticResource typeToColor}}"/>
                                 <Rectangle Width="25" HorizontalAlignment="Right" Margin="40,3" Fill="#FFEAD8C1"/>
                                 <TextBlock Text="{Binding Label}" VerticalAlignment="Center" Margin="5,0,40,0"/>
-                                <TextBlock Text="{Binding Counter}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                <TextBlock Text="{Binding Converter={StaticResource shortName}}" HorizontalAlignment="Right" VerticalAlignment="Center"
                                            Width="50" TextAlignment="Center" Foreground="BlanchedAlmond"/>
                             </Grid>
                         </DataTemplate>

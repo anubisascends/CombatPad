@@ -13,10 +13,10 @@ namespace CombatPad.Classes
 
             return value switch
             {
-                CombatItemType.Hazard => converter.ConvertFrom("#FF937F7F"),
-                CombatItemType.NonPlayerCharacter => converter.ConvertFrom("#FF84201F"),
-                CombatItemType.PlayerCharacter => converter.ConvertFromString("#FF3C5D8A"),
-                CombatItemType.Condition => converter.ConvertFrom("#FF882324"),
+                Hazard => converter.ConvertFrom("#FF937F7F")!,
+                Condition => converter.ConvertFrom("#FF882324")!,
+                PlayerCharacter => converter.ConvertFromString("#FF3C5D8A")!,
+                NonPlayerCharacter => converter.ConvertFrom("#FF84201F")!,
                 _ => Brushes.Black
             };
         }

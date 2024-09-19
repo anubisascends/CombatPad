@@ -1,6 +1,6 @@
-﻿using System.Windows.Ink;
-
-namespace CombatPad.Models
+﻿namespace CombatPad.Models
 {
-    public record struct DocumentDto(IEnumerable<CombatItem> CombatItems, IEnumerable<MarkerItem> MarkerItems, IEnumerable<byte> Strokes);
+    public record struct DocumentDto(IEnumerable<PlayerCharacter> PCs, IEnumerable<NonPlayerCharacter> NPCs, 
+        IEnumerable<Hazard> Hazards, IEnumerable<Condition> Conditions, IEnumerable<MarkerItem> MarkerItems, 
+        IEnumerable<byte> Strokes);
 }

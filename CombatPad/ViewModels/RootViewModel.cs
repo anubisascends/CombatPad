@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Ink;
 using System.Windows.Media;
@@ -24,21 +23,21 @@ namespace CombatPad.ViewModels
         [ObservableProperty]
         private string? _SaveFilePath;
 
-        public ObservableCollection<CombatItem> Items { get; } = [];
+        public ObservableCollection<ListItem> Items { get; } = [];
         public ObservableCollection<MarkerItem> Markers { get; } = [];
         public IRepository Repository { get; } = repository;
 
         [RelayCommand]
-        private void AddPlayerCharacter() => Items.Add(new CombatItem { Label = "New PC", Type = CombatItemType.PlayerCharacter, Counter = Items.Count(x => x.Type == CombatItemType.PlayerCharacter) + 1 });
+        private void AddPlayerCharacter() => Items.Add(new PlayerCharacter { Label = "New PC" });
 
         [RelayCommand]
-        private void AddNonPlayerCharacter() => Items.Add(new CombatItem { Label = "New NPC", Type = CombatItemType.NonPlayerCharacter, Counter = Items.Count(x => x.Type == CombatItemType.NonPlayerCharacter) + 1 });
+        private void AddNonPlayerCharacter() => Items.Add(new NonPlayerCharacter { Label = "New NPC" });
 
         [RelayCommand]
-        private void AddHazard() => Items.Add(new CombatItem { Label = "New Hazard", Type = CombatItemType.Hazard, Counter = Items.Count(x => x.Type == CombatItemType.Hazard) + 1 });
+        private void AddHazard() => Items.Add(new Hazard { Label = "New Hazard" });
 
         [RelayCommand]
-        private void AddCondition() => Items.Add(new CombatItem { Label = "New Condition", Type = CombatItemType.Condition });
+        private void AddCondition() => Items.Add(new Models.Condition { Label = "New Condition" });
 
         [RelayCommand]
         private void AddMarker(string color)
@@ -55,17 +54,17 @@ namespace CombatPad.ViewModels
         {
             var view = App.Host.Services.GetRequiredService<RootView>();
 
-            if (SelectedCombatItem is CombatItem combatItem)
+            if (SelectedCombatItem is ListItem listItem)
             {
                 var result = MessageBox.Show(view,
-                    $"Are you sure you want remove {combatItem?.Label}?",
+                    $"Are you sure you want remove {listItem?.Label}?",
                     "Confirm Delete",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Items.Remove(combatItem!);
+                    Items.Remove(listItem!);
                 }
             }
             else if (SelectedCombatItem is MarkerItem markerItem) 
@@ -96,7 +95,12 @@ namespace CombatPad.ViewModels
             using var stream = new MemoryStream();
             NoteStrokes.Save(stream);
 
-            var document = new DocumentDto(Items, Markers, stream.ToArray());
+            var document = new DocumentDto(Items.Where(x => x is PlayerCharacter).ToArray().Cast<PlayerCharacter>(), 
+                Items.Where(x => x is NonPlayerCharacter && x is not PlayerCharacter).ToArray().Cast<NonPlayerCharacter>(), 
+                Items.Where(x => x is Hazard).ToArray().Cast<Hazard>(),
+                Items.Where(x => x is Models.Condition).ToArray().Cast<Models.Condition>(), 
+                Markers, 
+                stream.ToArray());
             Repository.Save(document, SaveFilePath);
         }
 
@@ -133,9 +137,9 @@ namespace CombatPad.ViewModels
                 SaveFilePath = dlg.FileName;
                 var document = Repository.Load(SaveFilePath);
 
-                foreach (var ci in document.CombatItems)
+                foreach (var item in Enumerable.Concat<ListItem>(document.PCs, document.NPCs).Concat(document.Hazards).Concat(document.Conditions)) 
                 {
-                    Items.Add(ci);
+                    Items.Add(item);
                 }
 
                 foreach (var m in document.MarkerItems)
@@ -164,9 +168,9 @@ namespace CombatPad.ViewModels
             {
                 var document = Repository.Load(dlg.FileName);
 
-                foreach (var ci in document.CombatItems)
+                foreach (var item in Enumerable.Concat<ListItem>(document.NPCs, document.Hazards))
                 {
-                    Items.Add(ci);
+                    Items.Add(item);
                 }
 
                 foreach (var m in document.MarkerItems)

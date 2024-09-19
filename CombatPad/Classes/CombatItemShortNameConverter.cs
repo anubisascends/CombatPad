@@ -8,18 +8,14 @@ namespace CombatPad.Classes
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is CombatItem item)
+            return value switch
             {
-                return item.Type switch
-                {
-                    CombatItemType.NonPlayerCharacter => "NPC",
-                    CombatItemType.Hazard => "HAZ",
-                    CombatItemType.Condition => "CON",
-                    _ => "PC"
-                };
-            }
-
-            return value?.ToString() ?? string.Empty;
+                PlayerCharacter => "PC",
+                NonPlayerCharacter => "NPC",
+                Hazard => "HAZ",
+                Condition => "CON",
+                _ => "PC"
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
