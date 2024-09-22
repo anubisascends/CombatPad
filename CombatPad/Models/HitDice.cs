@@ -30,7 +30,7 @@ namespace CombatPad.Models
             {
                 if(builder.Length > 0)
                 {
-                    builder.Append(", ");
+                    builder.Append("+");
                 }
 
                 builder.Append($"{group.Count()}d{group.Key}");

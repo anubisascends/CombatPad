@@ -1,0 +1,34 @@
+﻿<Window x:Class="CombatPad.Dialogs.TextInputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CombatPad.Dialogs"
+        mc:Ignorable="d" WindowStyle="ToolWindow" ResizeMode="NoResize"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="&lt;title&gt;" Height="150" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding Message}" Margin="5"/>
+
+            <TextBox Grid.Row="1" Margin="2.5" Text="{Binding Result}"/>
+        </Grid>
+
+        <Grid Background="Silver" Grid.Row="1">
+            <StackPanel Margin="10" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Style="{StaticResource Buttons.Dialog.Ok}" Click="Button_Click"/>
+                <Button Style="{StaticResource Buttons.Dialog.Cancel}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

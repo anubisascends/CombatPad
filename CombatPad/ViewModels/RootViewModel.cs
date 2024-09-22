@@ -8,7 +8,6 @@ using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Ink;
 using System.Windows.Media;
 
@@ -102,8 +101,7 @@ namespace CombatPad.ViewModels
                 Items.Where(x => x is NonPlayerCharacter && x is not PlayerCharacter).ToArray().Cast<NonPlayerCharacter>(), 
                 Items.Where(x => x is Hazard).ToArray().Cast<Hazard>(),
                 Items.Where(x => x is Models.Condition).ToArray().Cast<Models.Condition>(), 
-                Markers, 
-                stream.ToArray());
+                Markers);
             Repository.Save(document, SaveFilePath);
         }
 
@@ -149,12 +147,6 @@ namespace CombatPad.ViewModels
                 {
                     Markers.Add(m);
                 }
-
-                if (document.Strokes.Count() > 0)
-                {
-                    using var stream = new MemoryStream(document.Strokes.ToArray());
-                    NoteStrokes = new StrokeCollection(stream);
-                }
             }
         }
 
@@ -180,11 +172,6 @@ namespace CombatPad.ViewModels
                 {
                     Markers.Add(m);
                 }
-
-                using var stream = new MemoryStream(document.Strokes.ToArray());
-                var strokes = new StrokeCollection(stream);
-
-                NoteStrokes.Add(strokes);
             }
         }
 

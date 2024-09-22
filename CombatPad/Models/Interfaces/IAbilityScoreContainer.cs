@@ -1,13 +1,9 @@
 ﻿using CombatPad.Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace CombatPad.Models.Interfaces
 {
-    public interface IAbilityScoreContainer
+    public interface IAbilityScoreContainer : INotifyPropertyChanged
     {
         AbilityScore Strength { get; }
         AbilityScore Dexterity { get; }
