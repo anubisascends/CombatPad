@@ -128,13 +128,21 @@
                         <icon:FontAwesome Kind="XSolid"/>
                     </Button>
                 </ToolBar>
+                <ToolBar>
+                    <Label>Zoom:</Label>
+                    <Slider Minimum="1" Maximum="4" Width="150" VerticalAlignment="Center" Value="{Binding ViewModel.Zoom}"
+                            SnapsToDevicePixels="True"/>
+                </ToolBar>
             </ToolBarTray>
         </ToolBarPanel>
 
         <Grid Grid.Row="2">
+            <Grid.LayoutTransform>
+                <ScaleTransform ScaleX="{Binding ViewModel.Zoom}" ScaleY="{Binding ViewModel.Zoom}"/>
+            </Grid.LayoutTransform>
             <Grid Background="#FFEAD8C1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="6.5"/>
                     <ColumnDefinition Width="250" />
                     <ColumnDefinition Width="25" />
@@ -186,7 +194,10 @@
                 <Rectangle Grid.RowSpan="2" Grid.Column="7" Stroke="Black"/>
                 <Rectangle Grid.RowSpan="2" Grid.Column="8" Stroke="Black"/>
 
-                <ItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.Markers}" d:ItemsSource="{d:SampleData ItemCount=1}">
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.Markers}" d:ItemsSource="{d:SampleData ItemCount=1}" Width="45">
+                    <ItemsControl.LayoutTransform>
+                        <ScaleTransform ScaleX="{Binding ViewModel.Zoom}" ScaleY="{Binding ViewModel.Zoom}"/>
+                    </ItemsControl.LayoutTransform>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -201,7 +212,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                
+
                 <ItemsControl Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="5" ItemsSource="{Binding ViewModel.Items}" d:ItemsSource="{d:SampleData ItemCount=1}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Ink;
 using System.Windows.Media;
 
@@ -22,6 +23,8 @@ namespace CombatPad.ViewModels
         private object? _SelectedCombatItem;
         [ObservableProperty]
         private string? _SaveFilePath;
+        [ObservableProperty]
+        private float _Zoom = 1;
 
         public ObservableCollection<ListItem> Items { get; } = [];
         public ObservableCollection<MarkerItem> Markers { get; } = [];
