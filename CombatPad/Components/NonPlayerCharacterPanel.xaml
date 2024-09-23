@@ -13,36 +13,19 @@
         <classes:HitDiceStringConverter x:Key="hdConverter"/>
     </UserControl.Resources>
     <StackPanel>
-        <ContentControl MouseDoubleClick="TextInput_DoubleClick">
-            <TextBlock>
-                <Bold>Name:</Bold>
-                <Run Text="{Binding Label}" d:Text="Aboleth"/>
-            </TextBlock>
-        </ContentControl>
-        <TextBlock>
-            <Bold>Size/Type:</Bold>
-            <Run Text="{Binding Size}" d:Text="Huge"/>
-            <Run Text="{Binding Type}" d:Text="Aberration"/>
-            <Run Text="{Binding SubType, Converter={StaticResource subTypeConverter}}" d:Text="(Aquatic)"/>
-        </TextBlock>
-        <TextBlock>
-            <Bold>Hit Dice:</Bold>
-            <Run Text="{Binding HitPoints, Converter={StaticResource hdConverter}, Mode=OneWay}" d:Text="8d8+40 (76 hp)"/>
-        </TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock><Bold>Name:</Bold></TextBlock>
+            <local:EditableTextBlock Text="{Binding Label, Mode=TwoWay}" Margin="2.5,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock><Bold>Size/Type:</Bold></TextBlock>
+        </StackPanel>
         <TextBlock>
             <Bold>Initiative:</Bold>
-            <Run Text="{Binding Initaitve.Total, Mode=OneWay}" d:Text="1"/>
         </TextBlock>
-        <TextBlock>
-            <Bold>Speed:</Bold>
-            <Run Text="{Binding Speed}" d:Text="10 ft. (2 Squares), swim 60 ft."/>
-        </TextBlock>
-        <TextBlock>
-            <Bold>Armor Class:</Bold>
-        </TextBlock>
-        <TextBlock>
-            <Bold>Base Attack/Grapple:</Bold>
-        </TextBlock>
-        
+        <StackPanel Orientation="Horizontal">
+            <TextBlock><Bold>Speed:</Bold></TextBlock>
+            <local:EditableTextBlock Text="{Binding Speed, Mode=TwoWay}" Margin="2.5,0"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>

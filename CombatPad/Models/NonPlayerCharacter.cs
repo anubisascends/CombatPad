@@ -32,7 +32,7 @@ namespace CombatPad.Models
         public HitPoints HitPoints { get; }
 
         [ObservableProperty]
-        private string? _Speed;
+        private string _Speed = "30 ft.";
         [ObservableProperty]
         private byte _BaseAttack;
         [ObservableProperty]
