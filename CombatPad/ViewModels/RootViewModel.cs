@@ -1,5 +1,6 @@
 ﻿using CombatPad.Models;
 using CombatPad.Repositories.Interfaces;
+using CombatPad.ViewModels.Interfaces;
 using CombatPad.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

@@ -15,19 +15,15 @@ namespace CombatPad
     {
         public static IHost Host { get; } = new HostBuilder()
             .ConfigureServices(services => {
-                services.AddSingleton<RootView>();
+                services.AddHostedService<RootView>();
+
                 services.AddSingleton<RootViewModel>();
 
                 services.AddTransient<IRepository, FileRepository>();
             })
             .Build();
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            var view = Host.Services.GetRequiredService<RootView>();
-
-            view.Show();
-        }
+        protected override void OnStartup(StartupEventArgs e) => Host.Start();
     }
 
 }
