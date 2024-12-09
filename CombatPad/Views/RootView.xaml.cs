@@ -1,5 +1,6 @@
 ﻿using CombatPad.ViewModels;
 using CombatPad.Views.Interfaces;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.Hosting;
 
 namespace CombatPad.Views

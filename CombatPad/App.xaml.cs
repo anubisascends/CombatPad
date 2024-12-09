@@ -2,6 +2,7 @@
 using CombatPad.Repositories.Interfaces;
 using CombatPad.ViewModels;
 using CombatPad.Views;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace CombatPad
                 services.AddHostedService<RootView>();
 
                 services.AddSingleton<RootViewModel>();
+                services.AddSingleton(DialogCoordinator.Instance);
 
                 services.AddTransient<IRepository, FileRepository>();
             })

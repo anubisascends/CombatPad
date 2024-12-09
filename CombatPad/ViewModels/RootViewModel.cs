@@ -1,26 +1,24 @@
 ﻿using CombatPad.Models;
 using CombatPad.Repositories.Interfaces;
 using CombatPad.ViewModels.Interfaces;
-using CombatPad.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows;
 using System.Windows.Ink;
 using System.Windows.Media;
 
 namespace CombatPad.ViewModels
 {
-    public partial class RootViewModel(IRepository repository) : ObservableObject, IViewModel
+    public partial class RootViewModel(IRepository repository, IDialogCoordinator dialogCoordinator) : ObservableObject, IViewModel
     {
         [ObservableProperty]
         private StrokeCollection _NoteStrokes = new();
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(RemoveCombatItemCommand))]
-        private object? _SelectedCombatItem;
+        private ListItem? _SelectedCombatItem;
         [ObservableProperty]
         private string? _SaveFilePath;
         [ObservableProperty]
@@ -29,18 +27,50 @@ namespace CombatPad.ViewModels
         public ObservableCollection<ListItem> Items { get; } = [];
         public ObservableCollection<MarkerItem> Markers { get; } = [];
         public IRepository Repository { get; } = repository;
+        public IDialogCoordinator DialogCoordinator { get; } = dialogCoordinator;
+
+        private void CreateListItem<T>(string label) where T : ListItem, new()
+        {
+            if (!string.IsNullOrWhiteSpace(label))
+            {
+                var top = 0d;
+
+                if (Items.Any())
+                {
+                    top = Items.Max(x => x.Top) + 35;
+                }
+
+                Items.Add(new T { Label = label, Top = top });
+            }
+        }
 
         [RelayCommand]
-        private void AddPlayerCharacter() => Items.Add(new PlayerCharacter { Label = "New PC" });
+        private async Task AddPlayerCharacter()
+        {
+            var result = await DialogCoordinator.ShowInputAsync(this, "New Player", "Please enter the player's name");
+            CreateListItem<PlayerCharacter>(result);
+        }
 
         [RelayCommand]
-        private void AddNonPlayerCharacter() => Items.Add(new NonPlayerCharacter { Label = "New NPC" });
+        private async Task AddNonPlayerCharacter() 
+        {
+            var result = await DialogCoordinator.ShowInputAsync(this, "New NPC", "Please enter the NPC's name");
+            CreateListItem<NonPlayerCharacter>(result);
+        }
 
         [RelayCommand]
-        private void AddHazard() => Items.Add(new Hazard { Label = "New Hazard" });
+        private async Task AddHazard()
+        {
+            var result = await DialogCoordinator.ShowInputAsync(this, "New NPC", "Please enter a label for this hazard.");
+            CreateListItem<Hazard>(result);
+        }
 
         [RelayCommand]
-        private void AddCondition() => Items.Add(new Models.Condition { Label = "New Condition" });
+        private async Task AddCondition()
+        {
+            var result = await DialogCoordinator.ShowInputAsync(this, "New NPC", "Please enter a label for this condition");
+            CreateListItem<Condition>(result);
+        }
 
         [RelayCommand]
         private void AddMarker(string color)
@@ -53,35 +83,13 @@ namespace CombatPad.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(CanRemoveCombatItem))]
-        private void RemoveCombatItem()
+        private async Task RemoveCombatItem()
         {
-            var view = App.Host.Services.GetRequiredService<RootView>();
+            var result = await DialogCoordinator.ShowMessageAsync(this, "Comfirm Delete", $"Are you sure you want to delete {SelectedCombatItem.Label}?", MessageDialogStyle.AffirmativeAndNegative);
 
-            if (SelectedCombatItem is ListItem listItem)
+            if(result == MessageDialogResult.Affirmative)
             {
-                var result = MessageBox.Show(view,
-                    $"Are you sure you want remove {listItem?.Label}?",
-                    "Confirm Delete",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    Items.Remove(listItem!);
-                }
-            }
-            else if (SelectedCombatItem is MarkerItem markerItem) 
-            {
-                var result = MessageBox.Show(view,
-                    $"Are you sure you want remove the selected marker?",
-                    "Confirm Delete",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    Markers.Remove(markerItem);
-                }
+                Items.Remove(SelectedCombatItem);
             }
         }
         private bool CanRemoveCombatItem() => SelectedCombatItem != null;
