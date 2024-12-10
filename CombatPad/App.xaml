@@ -7,23 +7,16 @@
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+
                 <!-- Theme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Crimson.xaml" />
+
+                <!--Application Styles and settings-->
+                <ResourceDictionary Source="Brushes.xaml"/>
+                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Converters.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="Buttons.Dialog" TargetType="Button">
-                <Setter Property="Width" Value="65" />
-                <Setter Property="Margin" Value="5" />
-            </Style>
-
-            <Style x:Key="Buttons.Dialog.Ok" TargetType="Button" BasedOn="{StaticResource Buttons.Dialog}">
-                <Setter Property="Content" Value="Ok" />
-                <Setter Property="IsDefault" Value="True" />
-            </Style>
-
-            <Style x:Key="Buttons.Dialog.Cancel" TargetType="Button" BasedOn="{StaticResource Buttons.Dialog}">
-                <Setter Property="Content" Value="Cancel" />
-                <Setter Property="IsCancel" Value="True" />
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

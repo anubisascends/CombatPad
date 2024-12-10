@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace CombatPad.Models
 {
-    public partial class NonPlayerCharacter : ListItem, IAbilityScoreContainer, ISkillContainer, IConditionContainer, ISizeContainer
+    public partial class NonPlayerCharacter : ListItem, IAbilityScoreContainer, ISkillContainer, IConditionContainer
     {
         public NonPlayerCharacter()
         {
@@ -34,15 +34,15 @@ namespace CombatPad.Models
         [ObservableProperty]
         private string _Speed = "30 ft.";
         [ObservableProperty]
-        private byte _BaseAttack;
+        private string _BaseAttack = "0";
         [ObservableProperty]
-        private CreatureSize _Size;
+        private string _Size = "Medium";
         [ObservableProperty]
-        private byte _ChallengeRating;
+        private string? _ChallengeRating;
         [ObservableProperty]
-        private CreatureType _Type;
+        private string _Type = string.Empty;
         [ObservableProperty]
-        private CreatureSubType _SubType;
+        private string _SubType = string.Empty;
         [ObservableProperty]
         private string? _Description;
 

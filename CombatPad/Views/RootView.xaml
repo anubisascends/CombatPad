@@ -21,39 +21,6 @@
         <KeyBinding Command="{Binding ViewModel.SaveAsCommand}" Key="S" Modifiers="Shift+Ctrl"/>
         <KeyBinding Command="{Binding ViewModel.ImportCommand}" Key="I" Modifiers="Ctrl+Shift"/>
     </Window.InputBindings>
-    <Window.Resources>
-        <classes:CombatItemTypeToColor x:Key="typeToColor"/>
-        <classes:ColorToBrushConverter x:Key="colorToBrush"/>
-        <classes:CombatItemShortNameConverter x:Key="shortName"/>
-        <Style x:Key="Skulls" TargetType="Rectangle">
-            <Setter Property="Fill">
-                <Setter.Value>
-                    <VisualBrush TileMode="Tile" Viewport="0,0,24,42"
-                                 ViewportUnits="Absolute" Stretch="None" Viewbox="0,0,1,1">
-                        <VisualBrush.Visual>
-                            <Grid>
-                                <icon:PackIconRPGAwesome Kind="Skull"/>
-                            </Grid>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="Circle" TargetType="Rectangle">
-            <Setter Property="Fill">
-                <Setter.Value>
-                    <VisualBrush TileMode="Tile" Viewport="0,0,24,42"
-                         ViewportUnits="Absolute" Stretch="None" Viewbox="0,0,1,1">
-                        <VisualBrush.Visual>
-                            <Grid>
-                                <icon:PackIconFontAwesome Kind="CircleSolid"/>
-                            </Grid>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <Button Command="{Binding ViewModel.NewCommand}">
@@ -67,6 +34,11 @@
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -79,7 +51,7 @@
             <Grid.LayoutTransform>
                 <ScaleTransform ScaleX="{Binding ViewModel.Zoom}" ScaleY="{Binding ViewModel.Zoom}"/>
             </Grid.LayoutTransform>
-            <Grid Background="#FFEAD8C1">
+            <Grid Background="{StaticResource Application.Brushes.Solid.Parchment}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="6.5"/>
@@ -97,16 +69,9 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                <Rectangle Grid.Column="2" Grid.ColumnSpan="5">
-                    <Rectangle.Fill>
-                        <LinearGradientBrush>
-                            <GradientStop Color="#FF350505" Offset="0"/>
-                            <GradientStop Color="#FF6A171A" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
+                <Rectangle Grid.Column="2" Grid.ColumnSpan="5" Fill="{StaticResource Application.Brushes.Gradient.Red}"/>
 
-                <Label Grid.Column="2" HorizontalAlignment="Center" Foreground="#FFEAD8C1">Initiative</Label>
+                <Label Grid.Column="2" HorizontalAlignment="Center" Foreground="{StaticResource Application.Brushes.Solid.Parchment}">Initiative</Label>
                 <Label Grid.Column="3" Foreground="#FFEAD8C1" VerticalAlignment="Center">
                     <Label.LayoutTransform>
                         <RotateTransform Angle="90" />
@@ -114,14 +79,14 @@
                     <Label.Content>Delay</Label.Content>
                 </Label>
                 <Label Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="#FFEAD8C1">Dying</Label>
-                <Label Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">1</Label>
-                <Label Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">2</Label>
-                <Label Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FFEAD8C1" Margin="0,24,0,0">3</Label>
+                <Label Grid.Column="4" Style="{StaticResource Application.Styles.Label.Header}">1</Label>
+                <Label Grid.Column="5" Style="{StaticResource Application.Styles.Label.Header}">2</Label>
+                <Label Grid.Column="6" Style="{StaticResource Application.Styles.Label.Header}">3</Label>
 
-                <Rectangle Grid.Column="3" Grid.Row="1" Style="{StaticResource Circle}"/>
-                <Rectangle Grid.Column="4" Grid.Row="1" Style="{StaticResource Skulls}"/>
-                <Rectangle Grid.Column="5" Grid.Row="1" Style="{StaticResource Skulls}"/>
-                <Rectangle Grid.Column="6" Grid.Row="1" Style="{StaticResource Skulls}"/>
+                <Rectangle Grid.Column="3" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Circle}"/>
+                <Rectangle Grid.Column="4" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
+                <Rectangle Grid.Column="5" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
+                <Rectangle Grid.Column="6" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
 
                 <Rectangle Grid.RowSpan="2" Grid.Column="0" Stroke="Black" Grid.ColumnSpan="2"/>
                 <Rectangle Grid.Row="1" Grid.Column="2" Stroke="Black"/>
@@ -162,6 +127,9 @@
                     <Button Margin="2.5" Command="{Binding ViewModel.AddHazardCommand}">
                         <icon:PackIconRPGAwesome Kind="Biohazard"/>
                     </Button>
+                    <Button Margin="2.5" Command="{Binding ViewModel.RemoveCombatItemCommand}">
+                        <icon:ForkAwesome Kind="Minus"/>
+                    </Button>
                 </StackPanel>
                 
                 <ItemsControl Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="5" ItemsSource="{Binding ViewModel.Items}" d:ItemsSource="{d:SampleData ItemCount=1}">
@@ -175,13 +143,13 @@
                             <Grid Tag="{Binding}">
                                 <Rectangle Width="250" Height="35" RadiusX="15" RadiusY="15" StrokeThickness="3" 
                                            Stroke="{Binding Converter={StaticResource typeToColor}}" 
-                                           Fill="#FFEAD8C1"/>
+                                           Fill="{StaticResource Application.Brushes.Solid.Parchment}"/>
                                 <Rectangle Width="50" RadiusX="15" RadiusY="15" HorizontalAlignment="Right" 
                                            Fill="{Binding Converter={StaticResource typeToColor}}"/>
                                 <Rectangle Width="25" HorizontalAlignment="Right" Margin="40,3" Fill="#FFEAD8C1"/>
-                                <TextBlock Text="{Binding Label}" VerticalAlignment="Center" Margin="5,0,40,0"/>
+                                <TextBlock Text="{Binding Label}" VerticalAlignment="Center" Margin="5,0,40,0" Foreground="{StaticResource Application.Brushes.Solid.Label}"/>
                                 <TextBlock Text="{Binding Converter={StaticResource shortName}}" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                           Width="50" TextAlignment="Center" Foreground="BlanchedAlmond"/>
+                                           Width="50" TextAlignment="Center" Foreground="{StaticResource Application.Brushes.Solid.Parchment}"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -192,6 +160,13 @@
                 </ScrollViewer>
                 
             </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+              Margin="10">
+
+            <Label Foreground="{StaticResource MahApps.Brushes.SliderTrack.Normal}">Zoom:</Label>
+            <Slider Width="150" Margin="45,0,0,0" Value="{Binding ViewModel.Zoom}" Minimum="1" Maximum="3"></Slider>
         </Grid>
     </Grid>
 </mah:MetroWindow>

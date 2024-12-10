@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <LinearGradientBrush x:Key="Application.Brushes.Gradient.Red">
+        <GradientStop Color="#FF350505" Offset="0"/>
+        <GradientStop Color="#FF6A171A" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="Application.Brushes.Solid.Parchment" Color="#FFEAD8C1"/>
+    <SolidColorBrush x:Key="Application.Brushes.Solid.Label" Color="Black"/>
+</ResourceDictionary>

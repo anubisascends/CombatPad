@@ -90,6 +90,7 @@ namespace CombatPad.ViewModels
             if(result == MessageDialogResult.Affirmative)
             {
                 Items.Remove(SelectedCombatItem);
+                SelectedCombatItem = null;
             }
         }
         private bool CanRemoveCombatItem() => SelectedCombatItem != null;

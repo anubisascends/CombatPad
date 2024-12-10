@@ -1,0 +1,65 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
+
+    <!--Buttons-->
+    <Style x:Key="Application.Styles.Button.Dialog" TargetType="Button">
+        <Setter Property="Width" Value="65" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
+    <Style x:Key="Application.Styles.Button.Dialog.Cancel" TargetType="Button" BasedOn="{StaticResource Application.Styles.Button.Dialog}">
+        <Setter Property="Content" Value="Cancel" />
+        <Setter Property="IsCancel" Value="True" />
+    </Style>
+
+    <Style x:Key="Application.Styles.Button.Dialog.Ok" TargetType="Button" BasedOn="{StaticResource Application.Styles.Button.Dialog}">
+        <Setter Property="Content" Value="Ok" />
+        <Setter Property="IsDefault" Value="True" />
+    </Style>
+
+    <!--Labels-->
+    <Style x:Key="Application.Styles.Label.Header" TargetType="Label">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{StaticResource Application.Brushes.Solid.Parchment}" />
+        <Setter Property="Margin" Value="0,24,0,0" />
+    </Style>
+
+    <!--Rectangles-->
+    <Style x:Key="Application.Styles.Rectangle.Line" TargetType="Rectangle">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Fill" Value="Black" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    
+    <Style x:Key="Application.Styles.Rectangle.Skulls" TargetType="Rectangle">
+        <Setter Property="Fill">
+            <Setter.Value>
+                <VisualBrush TileMode="Tile" Viewport="0,0,24,42"
+                         ViewportUnits="Absolute" Stretch="None" Viewbox="0,0,1,1">
+                    <VisualBrush.Visual>
+                        <Grid>
+                            <icon:PackIconRPGAwesome Kind="Skull"/>
+                        </Grid>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="Application.Styles.Rectangle.Circle" TargetType="Rectangle">
+        <Setter Property="Fill">
+            <Setter.Value>
+                <VisualBrush TileMode="Tile" Viewport="0,0,24,42"
+                 ViewportUnits="Absolute" Stretch="None" Viewbox="0,0,1,1">
+                    <VisualBrush.Visual>
+                        <Grid>
+                            <icon:PackIconFontAwesome Kind="CircleSolid"/>
+                        </Grid>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
