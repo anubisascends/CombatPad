@@ -61,14 +61,14 @@ namespace CombatPad.ViewModels
         [RelayCommand]
         private async Task AddHazard()
         {
-            var result = await DialogCoordinator.ShowInputAsync(this, "New NPC", "Please enter a label for this hazard.");
+            var result = await DialogCoordinator.ShowInputAsync(this, "New Hazard", "Please enter a label for this hazard.");
             CreateListItem<Hazard>(result);
         }
 
         [RelayCommand]
         private async Task AddCondition()
         {
-            var result = await DialogCoordinator.ShowInputAsync(this, "New NPC", "Please enter a label for this condition");
+            var result = await DialogCoordinator.ShowInputAsync(this, "New Condition", "Please enter a label for this condition");
             CreateListItem<Condition>(result);
         }
 
