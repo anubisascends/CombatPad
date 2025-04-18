@@ -119,17 +119,37 @@
                 <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10"
                             Orientation="Horizontal">
                     <Button Margin="2.5" Command="{Binding ViewModel.AddPlayerCharacterCommand}">
-                        <icon:PackIconRPGAwesome Kind="Player"/>
+                        <icon:GameIcons Kind="TabletopPlayers"/>
                     </Button>
                     <Button Margin="2.5" Command="{Binding ViewModel.AddNonPlayerCharacterCommand}">
-                        <icon:PackIconRPGAwesome Kind="MonsterSkull"/>
+                        <icon:GameIcons Kind="DaemonSkull"/>
                     </Button>
                     <Button Margin="2.5" Command="{Binding ViewModel.AddHazardCommand}">
-                        <icon:PackIconRPGAwesome Kind="Biohazard"/>
+                        <icon:GameIcons Kind="HazardSign"/>
                     </Button>
-                    <Button Margin="2.5" Command="{Binding ViewModel.RemoveCombatItemCommand}">
-                        <icon:ForkAwesome Kind="Minus"/>
-                    </Button>
+                    <mah:SplitButton Margin="2.5" SelectedIndex="{Binding ViewModel.SelectedTrashItem}" Command="{Binding ViewModel.RemoveCombatItemCommand}">
+                        <mah:SplitButton.Icon>
+                            <icon:ForkAwesome Kind="Trash"/>
+                        </mah:SplitButton.Icon>
+
+                        <mah:SplitButton.Items>
+                            <ListBoxItem ToolTip="Selected">
+                                <icon:GameIcons Kind="Select"/>
+                            </ListBoxItem>
+                            <ListBoxItem ToolTip="Players">
+                                <icon:GameIcons Kind="TabletopPlayers"/>
+                            </ListBoxItem>
+                            <ListBoxItem ToolTip="Non Player Characters">
+                                <icon:GameIcons Kind="DaemonSkull"/>
+                            </ListBoxItem>
+                            <ListBoxItem ToolTip="Hazards">
+                                <icon:GameIcons Kind="HazardSign"/>
+                            </ListBoxItem>
+                            <ListBoxItem ToolTip="Everything">
+                                <icon:Material Kind="AllInclusive"/>
+                            </ListBoxItem>
+                        </mah:SplitButton.Items>
+                    </mah:SplitButton>
                 </StackPanel>
                 
                 <ItemsControl Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="5" ItemsSource="{Binding ViewModel.Items}" d:ItemsSource="{d:SampleData ItemCount=1}">

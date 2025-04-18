@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Ink;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 namespace CombatPad.ViewModels
 {
@@ -23,6 +24,8 @@ namespace CombatPad.ViewModels
         private string? _SaveFilePath;
         [ObservableProperty]
         private float _Zoom = 1;
+        [ObservableProperty]
+        private int _SelectedTrashItem = 0;
 
         public ObservableCollection<ListItem> Items { get; } = [];
         public ObservableCollection<MarkerItem> Markers { get; } = [];
@@ -85,15 +88,33 @@ namespace CombatPad.ViewModels
         [RelayCommand(CanExecute = nameof(CanRemoveCombatItem))]
         private async Task RemoveCombatItem()
         {
-            var result = await DialogCoordinator.ShowMessageAsync(this, "Comfirm Delete", $"Are you sure you want to delete {SelectedCombatItem.Label}?", MessageDialogStyle.AffirmativeAndNegative);
-
-            if(result == MessageDialogResult.Affirmative)
+            IEnumerable<ListItem> items = SelectedTrashItem switch
             {
-                Items.Remove(SelectedCombatItem);
-                SelectedCombatItem = null;
+                1 => Items.Where(x => x is PlayerCharacter),
+                2 => Items.Where(x => x is NonPlayerCharacter && x is not PlayerCharacter),
+                3 => Items.Where(x => x is Hazard),
+                4 => Items.ToList(),
+                _ => [SelectedCombatItem!],
+            };
+
+            if (items.Any())
+            {
+                var result = await DialogCoordinator.ShowMessageAsync(this,
+                    "Comfirm Delete",
+                    $"Are you sure you want to delete {items.Count()} items?",
+                    MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    foreach (var item in items.ToArray())
+                    {
+                        Items.Remove(item);
+                        SelectedCombatItem = null;
+                    }
+                }
             }
         }
-        private bool CanRemoveCombatItem() => SelectedCombatItem != null;
+        private bool CanRemoveCombatItem() => Items.Any();
 
         [RelayCommand]
         private void Save()
