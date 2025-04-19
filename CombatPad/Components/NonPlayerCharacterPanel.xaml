@@ -11,10 +11,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.Resources>
-            <Style TargetType="local:EditableTextBlock">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Foreground" Value="Black" />
-            </Style>
+            <Style TargetType="TextBox" BasedOn="{StaticResource Application.Styles.TextBox.Transparent}"/>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -28,26 +25,48 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
+        <!--Name-->
         <Label Foreground="{StaticResource Application.Brushes.Solid.Label}">Name:</Label>
-        <TextBox Text="{Binding Label, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="10"
-                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
+        <TextBox Text="{Binding Label}" Grid.Column="1" Grid.ColumnSpan="10"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.ColumnSpan="10"/>
 
+        <!--Type-->
         <Label Foreground="{x:Static SystemColors.ControlTextBrush}" Grid.Row="1">Type:</Label>
-        <TextBox Text="{Binding Type, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
-                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
+        <TextBox Text="{Binding Type, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.Row="1"/>
 
+        <!--Sub-Type-->
         <Label Foreground="{x:Static SystemColors.ControlTextBrush}" Grid.Row="1" Grid.Column="2">Sub Type:</Label>
-        <TextBox Text="{Binding SubType, Mode=TwoWay}" Grid.Column="3" Grid.Row="1"
-                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
+        <TextBox Text="{Binding SubType, Mode=TwoWay}" Grid.Column="3" Grid.Row="1"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="3" Grid.Row="1"/>
 
+        <!--Description-->
         <Label Foreground="{x:Static SystemColors.ControlTextBrush}" Grid.Row="2">Description:</Label>
-        <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"
-                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
+        <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"/>
+        
+        <!--Ability Scores-->
+        <GroupBox Header="Abilities" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <local:AbilityScoreComponent Title="Strength" Score="{Binding Strength, Mode=TwoWay}" />
+                <local:AbilityScoreComponent Title="Dexterity" Score="{Binding Dexterity, Mode=TwoWay}" Grid.Column="1"/>
+                <local:AbilityScoreComponent Title="Constitution" Score="{Binding Constitution, Mode=TwoWay}" Grid.Column="2"/>
+                <local:AbilityScoreComponent Title="Intelligence" Score="{Binding Intelligence, Mode=TwoWay}" Grid.Column="3"/>
+                <local:AbilityScoreComponent Title="Wisdom" Score="{Binding Wisdom, Mode=TwoWay}" Grid.Column="4"/>
+                <local:AbilityScoreComponent Title="Charisma" Score="{Binding Charisma, Mode=TwoWay}" Grid.Column="5"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>

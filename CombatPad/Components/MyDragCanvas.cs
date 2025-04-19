@@ -8,11 +8,6 @@ namespace CombatPad.Components
 {
     public class MyDragCanvas : DragCanvas
     {
-        public MyDragCanvas()
-        {
-
-        }
-
         public object SelectedItem
         {
             get { return GetValue(SelectedItemProperty); }

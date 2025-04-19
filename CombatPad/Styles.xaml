@@ -69,6 +69,11 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="SelectionBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="{x:Static SystemColors.ControlTextBrush}"/>
-        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="Application.Styles.TextBox.AbilityScore" TargetType="TextBox" BasedOn="{StaticResource Application.Styles.TextBox.Transparent}">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="15" />
     </Style>
 </ResourceDictionary>
