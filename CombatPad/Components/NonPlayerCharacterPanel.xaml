@@ -50,7 +50,7 @@
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"/>
         
         <!--Ability Scores-->
-        <GroupBox Header="Abilities" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="10" Height="120"
+        <GroupBox Header="Abilities" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Height="120"
                   mah:HeaderedControlHelper.HeaderBackground="{StaticResource Application.Brushes.Gradient.Red}">
             <Grid>
                 <Grid.ColumnDefinitions>
