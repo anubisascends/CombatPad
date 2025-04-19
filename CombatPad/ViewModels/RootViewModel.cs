@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Ink;
 using System.Windows.Media;
-using System.Windows.Navigation;
 
 namespace CombatPad.ViewModels
 {

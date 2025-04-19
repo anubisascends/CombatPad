@@ -31,19 +31,23 @@
         </Grid.RowDefinitions>
 
         <Label Foreground="{StaticResource Application.Brushes.Solid.Label}">Name:</Label>
-        <local:EditableTextBlock Text="{Binding Label, Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="10"/>
+        <TextBox Text="{Binding Label, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="10"
+                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.ColumnSpan="10"/>
 
-        <Label Foreground="{StaticResource Application.Brushes.Solid.Label}" Grid.Row="1">Type:</Label>
-        <local:EditableTextBlock Text="{Binding Type, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+        <Label Foreground="{x:Static SystemColors.ControlTextBrush}" Grid.Row="1">Type:</Label>
+        <TextBox Text="{Binding Type, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
+                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.Row="1"/>
 
-        <Label Foreground="{StaticResource Application.Brushes.Solid.Label}" Grid.Row="1" Grid.Column="2">Sub Type:</Label>
-        <local:EditableTextBlock Text="{Binding SubType, Mode=TwoWay}" Grid.Column="3" Grid.Row="1"/>
+        <Label Foreground="{x:Static SystemColors.ControlTextBrush}" Grid.Row="1" Grid.Column="2">Sub Type:</Label>
+        <TextBox Text="{Binding SubType, Mode=TwoWay}" Grid.Column="3" Grid.Row="1"
+                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="3" Grid.Row="1"/>
 
-        <Label Foreground="{StaticResource Application.Brushes.Solid.Label}" Grid.Row="2">Description:</Label>
-        <local:EditableTextBlock Text="{Binding Description, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"/>
+        <Label Foreground="{x:Static SystemColors.ControlTextBrush}" Grid.Row="2">Description:</Label>
+        <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"
+                 Style="{StaticResource Application.Styles.TextBox.Transparent}"/>
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"/>
     </Grid>
 </UserControl>

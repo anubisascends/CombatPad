@@ -62,4 +62,13 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--TextBoxes-->
+    <Style x:Key="Application.Styles.TextBox.Transparent" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="SelectionBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{x:Static SystemColors.ControlTextBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
 </ResourceDictionary>
