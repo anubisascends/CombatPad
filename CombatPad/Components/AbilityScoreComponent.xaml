@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CombatPad.Components" xmlns:models="clr-namespace:CombatPad.Models"
              mc:Ignorable="d" d:Background="White"
              d:DataContext="{d:DesignInstance models:NonPlayerCharacter}"
-             d:DesignHeight="150" d:DesignWidth="150">
+             d:DesignHeight="48" d:DesignWidth="118">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -21,7 +21,24 @@
         <Label HorizontalAlignment="Center" FontSize="12" d:Content="Constitution" 
                Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AbilityScoreComponent}}, Path=Title}"/>
 
-        <TextBox Style="{StaticResource Application.Styles.TextBox.AbilityScore}" Grid.Row="1"
-                 Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AbilityScoreComponent}}, Path=Score}"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Label FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Top">score</Label>
+            <Label Grid.Column="1" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Top">modifier</Label>
+            <TextBox Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AbilityScoreComponent}}, Path=Score}"
+                     Style="{StaticResource Application.Styles.TextBox.AbilityScore}" d:Text="18" Grid.Row="1"/>
+            <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AbilityScoreComponent}}, Path=Score, Converter={StaticResource Application.Converters.Modifier}}"
+                       HorizontalAlignment="Center" Foreground="{x:Static SystemColors.ControlTextBrush}" FontSize="16" Grid.Column="1" d:Text="4"
+                       VerticalAlignment="Center" Grid.Row="1"/>
+        </Grid>
     </Grid>
 </UserControl>

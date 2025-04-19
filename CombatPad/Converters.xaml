@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:classes="clr-namespace:CombatPad.Classes">
+    <classes:AbilityScoreConverter x:Key="Application.Converters.Modifier"/>
     <classes:CombatItemTypeToColor x:Key="typeToColor"/>
     <classes:ColorToBrushConverter x:Key="colorToBrush"/>
     <classes:CombatItemShortNameConverter x:Key="shortName"/>

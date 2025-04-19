@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CombatPad.Components" 
              xmlns:classes="clr-namespace:CombatPad.Classes"
              xmlns:models="clr-namespace:CombatPad.Models"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" d:Background="White"
              d:DataContext="{d:DesignInstance models:NonPlayerCharacter}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -49,7 +50,8 @@
         <Rectangle Style="{StaticResource Application.Styles.Rectangle.Line}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10"/>
         
         <!--Ability Scores-->
-        <GroupBox Header="Abilities" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="10">
+        <GroupBox Header="Abilities" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="10" Height="120"
+                  mah:HeaderedControlHelper.HeaderBackground="{StaticResource Application.Brushes.Gradient.Red}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
