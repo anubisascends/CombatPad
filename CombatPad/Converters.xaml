@@ -5,4 +5,5 @@
     <classes:CombatItemTypeToColor x:Key="typeToColor"/>
     <classes:ColorToBrushConverter x:Key="colorToBrush"/>
     <classes:CombatItemShortNameConverter x:Key="shortName"/>
+    <classes:HitPointConverter x:Key="hpConverter"/>
 </ResourceDictionary>

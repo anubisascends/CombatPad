@@ -25,6 +25,8 @@ namespace CombatPad.Models
         [ObservableProperty]
         private int _HitPoints;
         [ObservableProperty]
+        private int _Damage;
+        [ObservableProperty]
         private string _Speed = "30 ft.";
         [ObservableProperty]
         private string _BaseAttack = "0";
