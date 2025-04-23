@@ -1,6 +1,8 @@
 ﻿using CombatPad.Classes;
 using CombatPad.Repositories;
 using CombatPad.Repositories.Interfaces;
+using CombatPad.Services;
+using CombatPad.Services.Interface;
 using CombatPad.ViewModels;
 using CombatPad.Views;
 using MahApps.Metro.Controls.Dialogs;
@@ -21,6 +23,7 @@ namespace CombatPad
 
                 services.AddSingleton<RootViewModel>();
                 services.AddSingleton(DialogCoordinator.Instance);
+                services.AddSingleton<ISettingsService, FileSettingsService>();
 
                 services.AddTransient<IRepository, FileRepository>();
             })
