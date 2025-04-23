@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using CombatPad.ViewModels.Interfaces;
+using MahApps.Metro.Controls.Dialogs;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CombatPad.Components
@@ -43,6 +46,26 @@ namespace CombatPad.Components
             set { SetValue(ShowSaveProperty, value); }
         }
 
+        public IDialogCoordinator DialogCoordinator
+        {
+            get { return (IDialogCoordinator)GetValue(DialogCoordinatorProperty); }
+            set { SetValue(DialogCoordinatorProperty, value); }
+        }
+
+        public IViewModel DialogCoordinatorViewModel
+        {
+            get { return (IViewModel)GetValue(DialogCoordinatorViewModelProperty); }
+            set { SetValue(DialogCoordinatorViewModelProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DialogCoordinatorViewModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DialogCoordinatorViewModelProperty =
+            DependencyProperty.Register("DialogCoordinatorViewModel", typeof(IViewModel), typeof(AbilityScoreComponent), new PropertyMetadata(null));
+
+        // Using a DependencyProperty as the backing store for DialogCoordinator.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DialogCoordinatorProperty =
+            DependencyProperty.Register("DialogCoordinator", typeof(IDialogCoordinator), typeof(AbilityScoreComponent), new PropertyMetadata(null));
+
         // Using a DependencyProperty as the backing store for Save.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SaveProperty =
             DependencyProperty.Register("Save", typeof(int), typeof(AbilityScoreComponent), new PropertyMetadata(0));
@@ -63,43 +86,45 @@ namespace CombatPad.Components
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(AbilityScoreComponent), new PropertyMetadata(""));
 
-        private void Score_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void Score_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var roll = Random.Shared.Next(1, 21) + Score;
+            var roll = Random.Shared.Next(1, 21);
 
-            DisplayRoll(roll, $"{Title} Score", Score);
+            await DisplayRoll(roll, roll + Score, $"{Title} Score", Score);
         }
 
-        private void Modifier_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void Modifier_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var modifier = (int)App.AbilityScoreConverter.Convert(Score, typeof(int), null!, null!);
-            var roll = Random.Shared.Next(1, 21) + modifier ;
+            var roll = Random.Shared.Next(1, 21) ;
 
-            DisplayRoll(roll, $"{Title} Modifier", modifier);
+            await DisplayRoll(roll, roll + modifier, $"{Title} Modifier", modifier);
         }
 
-        private void Save_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void Save_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var roll = Random.Shared.Next(1, 21) + Save;
 
-            DisplayRoll(roll, $"{Title} Save", Save);
+            await DisplayRoll(roll, roll + Save, $"{Title} Save", Save);
         }
 
-        private void DisplayRoll(int roll, string title) => DisplayRoll(roll, title, []);
+        private async Task DisplayRoll(int roll, int result, string title) => await DisplayRoll(roll, result, title, []);
 
-        private void DisplayRoll(int roll, int modifier, string title) => DisplayRoll(roll, title, [modifier]);
+        private async Task DisplayRoll(int roll, int result, int modifier, string title) => await DisplayRoll(roll, result, title, [modifier]);
 
-        private void DisplayRoll(int roll, string title, params IEnumerable<int> modifiers)
+        private async Task DisplayRoll(int roll, int result, string title, params IEnumerable<int> modifiers)
         {
             var modString = string.Join(" + ", modifiers);
-            var rollString = "Roll";
+            var rollString = $"Roll {result} ({roll}";
 
             if(modString.Length > 0)
             {
                 rollString += $" + {modString}";
             }
 
-            MessageBox.Show($"{rollString} = {roll}", title);
+            rollString += ")";
+
+            _ = await DialogCoordinator.ShowMessageAsync(DialogCoordinatorViewModel, title, rollString);
         }
     }
 }

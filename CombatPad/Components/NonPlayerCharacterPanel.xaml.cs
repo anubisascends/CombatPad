@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using CombatPad.ViewModels.Interfaces;
+using MahApps.Metro.Controls.Dialogs;
+using System.Windows;
 
 namespace CombatPad.Components
 {
@@ -23,6 +25,26 @@ namespace CombatPad.Components
             get { return (bool)GetValue(ShowAbilitySavesProperty); }
             set { SetValue(ShowAbilitySavesProperty, value); }
         }
+
+        public IDialogCoordinator DialogCoordinator
+        {
+            get { return (IDialogCoordinator)GetValue(DialogCoordinatorProperty); }
+            set { SetValue(DialogCoordinatorProperty, value); }
+        }
+
+        public IViewModel DialogCoordinatorViewModel
+        {
+            get { return (IViewModel)GetValue(DialogCoordinatorViewModelProperty); }
+            set { SetValue(DialogCoordinatorViewModelProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DialogCoordinatorViewModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DialogCoordinatorViewModelProperty =
+            DependencyProperty.Register("DialogCoordinatorViewModel", typeof(IViewModel), typeof(NonPlayerCharacterPanel), new PropertyMetadata(null));
+
+        // Using a DependencyProperty as the backing store for DialogCoordinator.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DialogCoordinatorProperty =
+            DependencyProperty.Register("DialogCoordinator", typeof(IDialogCoordinator), typeof(NonPlayerCharacterPanel), new PropertyMetadata(null));
 
         // Using a DependencyProperty as the backing store for ShowAbilitySaves.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowAbilitySavesProperty =
