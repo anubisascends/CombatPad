@@ -25,7 +25,7 @@ namespace CombatPad.Components
             set { SetValue(ScoreProperty, value); }
         }
 
-        public int? Save
+        public int Save
         {
             get { return (int)GetValue(SaveProperty); }
             set { SetValue(SaveProperty, value); }
@@ -67,7 +67,7 @@ namespace CombatPad.Components
         {
             var roll = Random.Shared.Next(1, 21) + Score;
 
-            MessageBox.Show($"Roll + {Score} = {roll}{Environment.NewLine}");
+            DisplayRoll(roll, $"{Title} Score", Score);
         }
 
         private void Modifier_MouseDown(object sender, MouseButtonEventArgs e)
@@ -75,14 +75,31 @@ namespace CombatPad.Components
             var modifier = (int)App.AbilityScoreConverter.Convert(Score, typeof(int), null!, null!);
             var roll = Random.Shared.Next(1, 21) + modifier ;
 
-            MessageBox.Show($"Roll + {modifier} = {roll}{Environment.NewLine}");
+            DisplayRoll(roll, $"{Title} Modifier", modifier);
         }
 
         private void Save_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var roll = Random.Shared.Next(1, 21) + Save;
 
-            MessageBox.Show($"Roll + {Save} = {roll}{Environment.NewLine}");
+            DisplayRoll(roll, $"{Title} Save", Save);
+        }
+
+        private void DisplayRoll(int roll, string title) => DisplayRoll(roll, title, []);
+
+        private void DisplayRoll(int roll, int modifier, string title) => DisplayRoll(roll, title, [modifier]);
+
+        private void DisplayRoll(int roll, string title, params IEnumerable<int> modifiers)
+        {
+            var modString = string.Join(" + ", modifiers);
+            var rollString = "Roll";
+
+            if(modString.Length > 0)
+            {
+                rollString += $" + {modString}";
+            }
+
+            MessageBox.Show($"{rollString} = {roll}", title);
         }
     }
 }

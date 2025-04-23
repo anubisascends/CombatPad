@@ -1,6 +1,5 @@
 ﻿using CombatPad.Models.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows;
 using System.Windows.Media;
 
 namespace CombatPad.Models
