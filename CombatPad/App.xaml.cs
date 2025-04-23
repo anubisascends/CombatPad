@@ -26,7 +26,7 @@ namespace CombatPad
             })
             .Build();
 
-        public static AbilityScoreConverter AbilityScoreConverter { get; } = new AbilityScoreConverter();
+        public static AbilityScoreConverter AbilityScoreConverter => (AbilityScoreConverter)Current.Resources["Application.Converters.Modifier"];
 
         protected override void OnStartup(StartupEventArgs e) => Host.Start();
     }

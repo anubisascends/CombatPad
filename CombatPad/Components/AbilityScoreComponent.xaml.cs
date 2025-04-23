@@ -1,5 +1,4 @@
-﻿using CombatPad.Classes;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace CombatPad.Components
@@ -73,8 +72,7 @@ namespace CombatPad.Components
 
         private void Modifier_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var converter = new AbilityScoreConverter();
-            var modifier = (int)converter.Convert(Score, typeof(int), null, null);
+            var modifier = (int)App.AbilityScoreConverter.Convert(Score, typeof(int), null!, null!);
             var roll = Random.Shared.Next(1, 21) + modifier ;
 
             MessageBox.Show($"Roll + {modifier} = {roll}{Environment.NewLine}");

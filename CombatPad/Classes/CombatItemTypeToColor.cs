@@ -1,7 +1,10 @@
 ﻿using CombatPad.Models;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+
+using Condition = CombatPad.Models.Condition;
 
 namespace CombatPad.Classes
 {
@@ -9,14 +12,12 @@ namespace CombatPad.Classes
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var converter = new BrushConverter();
-
             return value switch
             {
-                Hazard => converter.ConvertFrom("#FF937F7F")!,
-                Condition => converter.ConvertFrom("#FF882324")!,
-                PlayerCharacter => converter.ConvertFromString("#FF3C5D8A")!,
-                NonPlayerCharacter => converter.ConvertFrom("#FF84201F")!,
+                Condition => (Brush)Application.Current.Resources["Application.Brushes.Solid.Condition"],
+                Hazard => (Brush)Application.Current.Resources["Application.Brushes.Solid.Hazard"],
+                PlayerCharacter => (Brush)Application.Current.Resources["Application.Brushes.Solid.PlayerCharacter"],
+                NonPlayerCharacter => (Brush)Application.Current.Resources["Application.Brushes.Solid.NonPlayerCharacter"],
                 _ => Brushes.Black
             };
         }
