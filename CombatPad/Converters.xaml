@@ -6,4 +6,5 @@
     <classes:ColorToBrushConverter x:Key="colorToBrush"/>
     <classes:CombatItemShortNameConverter x:Key="shortName"/>
     <classes:HitPointConverter x:Key="hpConverter"/>
+    <classes:BoolToWidthConverter x:Key="boolToWidth"/>
 </ResourceDictionary>

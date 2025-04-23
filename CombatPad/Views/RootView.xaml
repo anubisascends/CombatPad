@@ -13,7 +13,7 @@
                   Dialog:DialogParticipation.Register="{Binding ViewModel}"
                   mc:Ignorable="d" d:DataContext="{d:DesignInstance local:RootView}"
                   
-                  Title="Combat Pad" Height="450" Width="900">
+                  Title="Combat Pad" Height="600" MinHeight="600" Width="1000" MinWidth="1000">
     <Window.InputBindings>
         <KeyBinding Command="{Binding ViewModel.NewCommand}" Key="N" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding ViewModel.LoadCommand}" Key="O" Modifiers="Ctrl"/>
@@ -31,6 +31,9 @@
             </Button>
             <Button Command="{Binding ViewModel.SaveCommand}">
                 <icon:FontAwesome Kind="FloppyDiskRegular"/>
+            </Button>
+            <Button Command="{Binding ViewModel.SettingsCommand}">
+                <icon:FontAwesome Kind="GearSolid"/>
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
@@ -176,9 +179,13 @@
                 </ItemsControl>
 
                 <ScrollViewer Grid.Row="1" Grid.Column="7" VerticalScrollBarVisibility="Auto">
-                    <components:NonPlayerCharacterPanel DataContext="{Binding ViewModel.SelectedCombatItem}"/>
+                    <components:NonPlayerCharacterPanel DataContext="{Binding ViewModel.SelectedCombatItem}"
+                                                        ShowAbilityModifiers="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.Config.ShowModifiers}"
+                                                        ShowAbilitySaves="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.Config.ShowSaves}"
+                                                        DialogCoordinator="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.DialogCoordinator}"
+                                                        DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel}"
+                                                        />
                 </ScrollViewer>
-                
             </Grid>
         </Grid>
 

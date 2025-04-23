@@ -1,20 +1,19 @@
 ﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace CombatPad.Classes
 {
-    public class SubTypeStringConverter : IValueConverter
+    public class BoolToWidthConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var result = $"({value})";
-
-            if(result.Length < 4)
+            if(value is bool bValue)
             {
-                return string.Empty;
+                return bValue ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
             }
 
-            return result.SplitCamelCase();
+            return new GridLength(0);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

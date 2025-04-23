@@ -10,7 +10,19 @@
              d:DesignHeight="150" d:DesignWidth="250">
     <GroupBox mah:HeaderedControlHelper.HeaderBackground="{StaticResource Application.Brushes.Gradient.Red}" >
         <GroupBox.Header>
-            <TextBlock>Hit Points</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="HIT POINTS"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <icons:PackIconBoxIcons Kind="RegularReset" ToolTip="Reset Damage" 
+                                            MouseDown="PackIconMaterial_MouseDown"
+                                            Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
         </GroupBox.Header>
         <Grid>
             <Grid.ColumnDefinitions>

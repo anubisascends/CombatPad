@@ -1,5 +1,6 @@
 ﻿using CombatPad.Models;
 using CombatPad.Repositories.Interfaces;
+using CombatPad.Services.Interface;
 using CombatPad.ViewModels.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 
 namespace CombatPad.ViewModels
 {
-    public partial class RootViewModel(IRepository repository, IDialogCoordinator dialogCoordinator) : ObservableObject, IViewModel
+    public partial class RootViewModel(IRepository repository, IDialogCoordinator dialogCoordinator, ISettingsService settingsService) : ObservableObject, IViewModel
     {
         [ObservableProperty]
         private StrokeCollection _NoteStrokes = new();
@@ -30,6 +31,8 @@ namespace CombatPad.ViewModels
         public ObservableCollection<MarkerItem> Markers { get; } = [];
         public IRepository Repository { get; } = repository;
         public IDialogCoordinator DialogCoordinator { get; } = dialogCoordinator;
+        public ISettingsService SettingsService { get; } = settingsService;
+        public Config Config { get; } = settingsService.GetConfig();
 
         private void CreateListItem<T>(string label) where T : ListItem, new()
         {
@@ -211,6 +214,12 @@ namespace CombatPad.ViewModels
             Markers.Clear();
             Items.Clear();
             NoteStrokes.Clear();
+        }
+
+        [RelayCommand]
+        private void Settings()
+        {
+
         }
     }
 }

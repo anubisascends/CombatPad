@@ -5,6 +5,10 @@
         <GradientStop Color="#FF6A171A" Offset="1"/>
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="Application.Brushes.Solid.Parchment" Color="#FFEAD8C1"/>
+    <SolidColorBrush x:Key="Application.Brushes.Solid.Condition" Color="#FF882324"/>
+    <SolidColorBrush x:Key="Application.Brushes.Solid.Hazard" Color="#FF937F7F"/>
     <SolidColorBrush x:Key="Application.Brushes.Solid.Label" Color="Black"/>
+    <SolidColorBrush x:Key="Application.Brushes.Solid.NonPlayerCharacter" Color="#FF84201F"/>
+    <SolidColorBrush x:Key="Application.Brushes.Solid.Parchment" Color="#FFEAD8C1"/>
+    <SolidColorBrush x:Key="Application.Brushes.Solid.PlayerCharacter" Color="#FF3C5D8A"/>
 </ResourceDictionary>
