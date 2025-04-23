@@ -1,4 +1,5 @@
-﻿using CombatPad.Repositories;
+﻿using CombatPad.Classes;
+using CombatPad.Repositories;
 using CombatPad.Repositories.Interfaces;
 using CombatPad.ViewModels;
 using CombatPad.Views;
@@ -24,6 +25,8 @@ namespace CombatPad
                 services.AddTransient<IRepository, FileRepository>();
             })
             .Build();
+
+        public static AbilityScoreConverter AbilityScoreConverter { get; } = new AbilityScoreConverter();
 
         protected override void OnStartup(StartupEventArgs e) => Host.Start();
     }

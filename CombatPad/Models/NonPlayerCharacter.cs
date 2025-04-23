@@ -21,6 +21,8 @@ namespace CombatPad.Models
         [ObservableProperty]
         private byte _Charisma;
         [ObservableProperty]
+        private byte _StrengthSave;
+        [ObservableProperty]
         private int _Initaitve;
         [ObservableProperty]
         private int _HitPoints;

@@ -212,5 +212,11 @@ namespace CombatPad.ViewModels
             Items.Clear();
             NoteStrokes.Clear();
         }
+
+        [RelayCommand]
+        private void Settings()
+        {
+
+        }
     }
 }
