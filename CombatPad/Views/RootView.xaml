@@ -58,47 +58,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="6.5"/>
-                    <ColumnDefinition Width="250" />
-                    <ColumnDefinition Width="25" />
-                    <ColumnDefinition Width="25" />
-                    <ColumnDefinition Width="25" />
-                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="350" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="45" />
                 </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-
-                <Rectangle Grid.Column="2" Grid.ColumnSpan="5" Fill="{StaticResource Application.Brushes.Gradient.Red}"/>
-
-                <Label Grid.Column="2" HorizontalAlignment="Center" Foreground="{StaticResource Application.Brushes.Solid.Parchment}">Initiative</Label>
-                <Label Grid.Column="3" Foreground="#FFEAD8C1" VerticalAlignment="Center">
-                    <Label.LayoutTransform>
-                        <RotateTransform Angle="90" />
-                    </Label.LayoutTransform>
-                    <Label.Content>Delay</Label.Content>
-                </Label>
-                <Label Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="#FFEAD8C1">Dying</Label>
-                <Label Grid.Column="4" Style="{StaticResource Application.Styles.Label.Header}">1</Label>
-                <Label Grid.Column="5" Style="{StaticResource Application.Styles.Label.Header}">2</Label>
-                <Label Grid.Column="6" Style="{StaticResource Application.Styles.Label.Header}">3</Label>
-
-                <Rectangle Grid.Column="3" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Circle}"/>
-                <Rectangle Grid.Column="4" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
-                <Rectangle Grid.Column="5" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
-                <Rectangle Grid.Column="6" Grid.Row="1" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
-
-                <Rectangle Grid.RowSpan="2" Grid.Column="0" Stroke="Black" Grid.ColumnSpan="2"/>
-                <Rectangle Grid.Row="1" Grid.Column="2" Stroke="Black"/>
-                <Rectangle Grid.Row="1" Grid.Column="3" Stroke="Black"/>
-                <Rectangle Grid.Row="1" Grid.Column="4" Stroke="Black"/>
-                <Rectangle Grid.Row="1" Grid.Column="5" Stroke="Black"/>
-                <Rectangle Grid.Row="1" Grid.Column="6" Stroke="Black"/>
-                <Rectangle Grid.RowSpan="2" Grid.Column="7" Stroke="Black"/>
-                <Rectangle Grid.RowSpan="2" Grid.Column="8" Stroke="Black"/>
 
                 <ItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.Markers}" d:ItemsSource="{d:SampleData ItemCount=1}" Width="45">
                     <ItemsControl.LayoutTransform>
@@ -119,8 +82,11 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
 
+                <components:InitiativePanel Grid.Row="1" Grid.Column="2" ItemsSource="{Binding ViewModel.Items}"
+                            SelectedItem="{Binding ViewModel.SelectedCombatItem, Mode=TwoWay}"/>
+
                 <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal" Background="{StaticResource Application.Brushes.Solid.Parchment}">
                     <Button Margin="2.5" Command="{Binding ViewModel.AddPlayerCharacterCommand}">
                         <icon:GameIcons Kind="TabletopPlayers"/>
                     </Button>
@@ -154,37 +120,13 @@
                         </mah:SplitButton.Items>
                     </mah:SplitButton>
                 </StackPanel>
-                
-                <ItemsControl Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="5" ItemsSource="{Binding ViewModel.Items}" d:ItemsSource="{d:SampleData ItemCount=1}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <components:MyDragCanvas SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.SelectedCombatItem, Mode=TwoWay}"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Tag="{Binding}">
-                                <Rectangle Width="250" Height="35" RadiusX="15" RadiusY="15" StrokeThickness="3" 
-                                           Stroke="{Binding Converter={StaticResource typeToColor}}" 
-                                           Fill="{StaticResource Application.Brushes.Solid.Parchment}"/>
-                                <Rectangle Width="50" RadiusX="15" RadiusY="15" HorizontalAlignment="Right" 
-                                           Fill="{Binding Converter={StaticResource typeToColor}}"/>
-                                <Rectangle Width="25" HorizontalAlignment="Right" Margin="40,3" Fill="#FFEAD8C1"/>
-                                <TextBlock Text="{Binding Label}" VerticalAlignment="Center" Margin="5,0,40,0" Foreground="{StaticResource Application.Brushes.Solid.Label}"/>
-                                <TextBlock Text="{Binding Converter={StaticResource shortName}}" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                           Width="50" TextAlignment="Center" Foreground="{StaticResource Application.Brushes.Solid.Parchment}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
 
-                <ScrollViewer Grid.Row="1" Grid.Column="7" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Row="1" Grid.Column="3" VerticalScrollBarVisibility="Auto">
                     <components:NonPlayerCharacterPanel DataContext="{Binding ViewModel.SelectedCombatItem}"
                                                         ShowAbilityModifiers="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.Config.ShowModifiers}"
                                                         ShowAbilitySaves="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.Config.ShowSaves}"
                                                         DialogCoordinator="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel.DialogCoordinator}"
-                                                        DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel}"
-                                                        />
+                                                        DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RootView}}, Path=ViewModel}"/>
                 </ScrollViewer>
             </Grid>
         </Grid>

@@ -27,8 +27,21 @@
             <Rectangle Grid.Column="2" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
             <Rectangle Grid.Column="3" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
             <Rectangle Grid.Column="4" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
+
+            <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InitiativePanel}}, Path=ItemsSource}"
+                          Grid.ColumnSpan="5"
+                          d:ItemsSource="{d:SampleData ItemCount=1}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <local:MyDragCanvas SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InitiativePanel}}, Path=SelectedItem, Mode=TwoWay}"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:DraggableItemComponent Item="{Binding}" Height="35" Width="250"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
-        
-        <local:MyDragCanvas />
     </Grid>
 </UserControl>
