@@ -1,10 +1,11 @@
 ﻿<UserControl x:Class="CombatPad.Components.InitiativePanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:CombatPad.Components"
-             mc:Ignorable="d" d:Background="{StaticResource Application.Brushes.Solid.Parchment}"
+             mc:Ignorable="d" 
+             d:Background="{StaticResource Application.Brushes.Solid.Parchment}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -27,6 +28,13 @@
             <Rectangle Grid.Column="2" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
             <Rectangle Grid.Column="3" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
             <Rectangle Grid.Column="4" Style="{StaticResource Application.Styles.Rectangle.Skulls}"/>
+            <Rectangle Grid.Column="0" Stroke="{StaticResource Application.Brushes.Gradient.Red}" HorizontalAlignment="Left"/>
+            <Rectangle Grid.Column="0" Stroke="{StaticResource Application.Brushes.Gradient.Red}" HorizontalAlignment="Right"/>
+            <Rectangle Grid.Column="1" Stroke="{StaticResource Application.Brushes.Gradient.Red}" HorizontalAlignment="Right"/>
+            <Rectangle Grid.Column="2" Stroke="{StaticResource Application.Brushes.Gradient.Red}" HorizontalAlignment="Right"/>
+            <Rectangle Grid.Column="3" Stroke="{StaticResource Application.Brushes.Gradient.Red}" HorizontalAlignment="Right"/>
+            <Rectangle Grid.Column="4" Stroke="{StaticResource Application.Brushes.Gradient.Red}" HorizontalAlignment="Right"/>
+            <Rectangle Grid.Column="5" Stroke="{StaticResource Application.Brushes.Gradient.Red}" HorizontalAlignment="Right"/>
 
             <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InitiativePanel}}, Path=ItemsSource}"
                           Grid.ColumnSpan="5"

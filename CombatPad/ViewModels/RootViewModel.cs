@@ -26,11 +26,13 @@ namespace CombatPad.ViewModels
         private float _Zoom = 1;
         [ObservableProperty]
         private int _SelectedTrashItem = 0;
+        [ObservableProperty]
+        private int _SelectedMarkerItem = 0;
 
         public ObservableCollection<ListItem> Items { get; } = [];
-        public ObservableCollection<MarkerItem> Markers { get; } = [];
+        public ObservableCollection<ListItem> Markers { get; } = [];
         public IRepository Repository { get; } = repository;
-        public IDialogCoordinator DialogCoordinator { get; } = dialogCoordinator;
+        //public IDialogCoordinator DialogCoordinator { get; } = dialogCoordinator;
         public ISettingsService SettingsService { get; } = settingsService;
         public Config Config { get; } = settingsService.GetConfig();
 
@@ -49,59 +51,13 @@ namespace CombatPad.ViewModels
             }
         }
 
-        [RelayCommand]
-        private async Task AddPlayerCharacter()
+        private async Task RemoveCombatItems(IEnumerable<ListItem> items)
         {
-            var result = await DialogCoordinator.ShowInputAsync(this, "New Player", "Please enter the player's name");
-            CreateListItem<PlayerCharacter>(result);
-        }
-
-        [RelayCommand]
-        private async Task AddNonPlayerCharacter() 
-        {
-            var result = await DialogCoordinator.ShowInputAsync(this, "New NPC", "Please enter the NPC's name");
-            CreateListItem<NonPlayerCharacter>(result);
-        }
-
-        [RelayCommand]
-        private async Task AddHazard()
-        {
-            var result = await DialogCoordinator.ShowInputAsync(this, "New Hazard", "Please enter a label for this hazard.");
-            CreateListItem<Hazard>(result);
-        }
-
-        [RelayCommand]
-        private async Task AddCondition()
-        {
-            var result = await DialogCoordinator.ShowInputAsync(this, "New Condition", "Please enter a label for this condition");
-            CreateListItem<Condition>(result);
-        }
-
-        [RelayCommand]
-        private void AddMarker(string color)
-        {
-            var converter = new ColorConverter();
-            var brush = (Color)converter.ConvertFromInvariantString(color);
-            var counter = Markers.Where(x => x.Color == brush!).Count() + 1;
-
-            Markers.Add(new() { Label = counter.ToString(), Color = brush });
-        }
-
-        [RelayCommand(CanExecute = nameof(CanRemoveCombatItem))]
-        private async Task RemoveCombatItem()
-        {
-            IEnumerable<ListItem> items = SelectedTrashItem switch
-            {
-                1 => Items.Where(x => x is PlayerCharacter),
-                2 => Items.Where(x => x is NonPlayerCharacter && x is not PlayerCharacter),
-                3 => Items.Where(x => x is Hazard),
-                4 => Items.ToList(),
-                _ => [SelectedCombatItem!],
-            };
-
             if (items.Any())
             {
-                var result = await DialogCoordinator.ShowMessageAsync(this,
+                var result = await DialogCoordinator
+                    .Instance
+                    .ShowMessageAsync(this,
                     "Comfirm Delete",
                     $"Are you sure you want to delete {items.Count()} items?",
                     MessageDialogStyle.AffirmativeAndNegative);
@@ -116,7 +72,105 @@ namespace CombatPad.ViewModels
                 }
             }
         }
-        private bool CanRemoveCombatItem() => Items.Any();
+
+        private async Task RemoveMarkerItems(IEnumerable<ListItem> items)
+        {
+            if (items.Any())
+            {
+                var result = await DialogCoordinator
+                    .Instance
+                    .ShowMessageAsync(this,
+                    "Comfirm Delete",
+                    $"Are you sure you want to delete {items.Count()} markers?",
+                    MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    foreach (var item in items.ToArray())
+                    {
+                        Markers.Remove(item);
+                    }
+                }
+            }
+        }
+
+        [RelayCommand]
+        private async Task AddPlayerCharacter()
+        {
+            var result = await DialogCoordinator
+                .Instance
+                .ShowInputAsync(this, "New Player", "Please enter the player's name");
+            CreateListItem<PlayerCharacter>(result);
+        }
+
+        [RelayCommand]
+        private async Task AddNonPlayerCharacter() 
+        {
+            var result = await DialogCoordinator
+                .Instance
+                .ShowInputAsync(this, "New NPC", "Please enter the NPC's name");
+            CreateListItem<NonPlayerCharacter>(result);
+        }
+
+        [RelayCommand]
+        private async Task AddHazard()
+        {
+            
+            var result = await DialogCoordinator
+                .Instance
+                .ShowInputAsync(this, "New Hazard", "Please enter a label for this hazard.");
+            CreateListItem<Hazard>(result);
+        }
+
+        [RelayCommand]
+        private async Task AddCondition()
+        {
+            var result = await DialogCoordinator
+                .Instance
+                .ShowInputAsync(this, "New Condition", "Please enter a label for this condition");
+            CreateListItem<Condition>(result);
+        }
+
+        [RelayCommand]
+        private void AddMarker()
+        {
+            var brush = SelectedMarkerItem switch
+            {
+                0 => Colors.Red,
+                1 => Colors.Blue,
+                2 => Colors.Green,
+                3 => Colors.Yellow,
+                4 => Colors.Purple,
+                5 => Colors.Orange,
+                _ => Colors.Black
+            };
+            var counter = Markers.Where(x => ((MarkerItem)x).Color == brush!).Count() + 1;
+
+            Markers.Add(new MarkerItem() { Label = counter.ToString(), Color = brush });
+        }
+
+        [RelayCommand(CanExecute = nameof(CanRemoveCombatItem))]
+        private async Task RemoveCombatItem()
+        {
+            IEnumerable<ListItem> items = SelectedTrashItem switch
+            {
+                1 => Items.Where(x => x is PlayerCharacter),
+                2 => Items.Where(x => x is NonPlayerCharacter && x is not PlayerCharacter),
+                3 => Items.Where(x => x is Hazard),
+                4 => Items.ToList(),
+                _ => [SelectedCombatItem!],
+            };
+
+            if(items.Any(x => x is MarkerItem))
+            {
+                await RemoveMarkerItems(items);
+            }
+            else
+            {
+                await RemoveCombatItems(items);
+            }
+        }
+        private bool CanRemoveCombatItem() => Items.Any() || Markers.Any();
 
         [RelayCommand]
         private void Save()
@@ -134,7 +188,7 @@ namespace CombatPad.ViewModels
                 Items.Where(x => x is NonPlayerCharacter && x is not PlayerCharacter).ToArray().Cast<NonPlayerCharacter>(), 
                 Items.Where(x => x is Hazard).ToArray().Cast<Hazard>(),
                 Items.Where(x => x is Models.Condition).ToArray().Cast<Models.Condition>(), 
-                Markers);
+                Markers.Cast<MarkerItem>());
             Repository.Save(document, SaveFilePath);
         }
 

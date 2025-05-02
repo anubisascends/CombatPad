@@ -81,25 +81,21 @@
 
                     <local:AbilityScoreComponent Title="Strength" Score="{Binding Strength, Mode=TwoWay}"
                                                  Save="{Binding StrengthSave ,Mode=TwoWay}"
-                                                 DialogCoordinator="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinator, Mode=TwoWay}"
                                                  DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinatorViewModel, Mode=TwoWay}"
                                                  ShowModifier="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilityModifiers, Mode=TwoWay}"
                                                  ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"/>
                     <local:AbilityScoreComponent Title="Dexterity" Score="{Binding Dexterity, Mode=TwoWay}" Grid.Column="1"
                                                  DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinatorViewModel, Mode=TwoWay}"
                                                  ShowModifier="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilityModifiers, Mode=TwoWay}"
-                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"
-                                                 DialogCoordinator="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinator, Mode=TwoWay}"/>
+                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"/>
                     <local:AbilityScoreComponent Title="Constitution" Score="{Binding Constitution, Mode=TwoWay}" Grid.Column="2"
                                                  DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinatorViewModel, Mode=TwoWay}"
                                                  ShowModifier="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilityModifiers, Mode=TwoWay}"
-                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"
-                                                 DialogCoordinator="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinator, Mode=TwoWay}"/>
+                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"/>
                     <local:AbilityScoreComponent Title="Intelligence" Score="{Binding Intelligence, Mode=TwoWay}" Grid.Column="3"
                                                  DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinatorViewModel, Mode=TwoWay}"
                                                  ShowModifier="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilityModifiers, Mode=TwoWay}"
-                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"
-                                                 DialogCoordinator="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinator, Mode=TwoWay}"/>
+                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"/>
                     <local:AbilityScoreComponent Title="Wisdom" Score="{Binding Wisdom, Mode=TwoWay}" Grid.Column="4"
                                                  DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinatorViewModel, Mode=TwoWay}"
                                                  ShowModifier="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilityModifiers, Mode=TwoWay}"
@@ -107,8 +103,7 @@
                     <local:AbilityScoreComponent Title="Charisma" Score="{Binding Charisma, Mode=TwoWay}" Grid.Column="5"
                                                  DialogCoordinatorViewModel="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinatorViewModel, Mode=TwoWay}"
                                                  ShowModifier="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilityModifiers, Mode=TwoWay}"
-                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"
-                                                 DialogCoordinator="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=DialogCoordinator, Mode=TwoWay}"/>
+                                                 ShowSave="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:NonPlayerCharacterPanel}}, Path=ShowAbilitySaves, Mode=TwoWay}"/>
                 </Grid>
             </GroupBox>
         </StackPanel>

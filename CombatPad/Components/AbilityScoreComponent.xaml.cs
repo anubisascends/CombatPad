@@ -1,6 +1,5 @@
 ﻿using CombatPad.ViewModels.Interfaces;
 using MahApps.Metro.Controls.Dialogs;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -46,12 +45,6 @@ namespace CombatPad.Components
             set { SetValue(ShowSaveProperty, value); }
         }
 
-        public IDialogCoordinator DialogCoordinator
-        {
-            get { return (IDialogCoordinator)GetValue(DialogCoordinatorProperty); }
-            set { SetValue(DialogCoordinatorProperty, value); }
-        }
-
         public IViewModel DialogCoordinatorViewModel
         {
             get { return (IViewModel)GetValue(DialogCoordinatorViewModelProperty); }
@@ -61,10 +54,6 @@ namespace CombatPad.Components
         // Using a DependencyProperty as the backing store for DialogCoordinatorViewModel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DialogCoordinatorViewModelProperty =
             DependencyProperty.Register("DialogCoordinatorViewModel", typeof(IViewModel), typeof(AbilityScoreComponent), new PropertyMetadata(null));
-
-        // Using a DependencyProperty as the backing store for DialogCoordinator.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DialogCoordinatorProperty =
-            DependencyProperty.Register("DialogCoordinator", typeof(IDialogCoordinator), typeof(AbilityScoreComponent), new PropertyMetadata(null));
 
         // Using a DependencyProperty as the backing store for Save.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SaveProperty =
@@ -108,10 +97,6 @@ namespace CombatPad.Components
             await DisplayRoll(roll, roll + Save, $"{Title} Save", Save);
         }
 
-        private async Task DisplayRoll(int roll, int result, string title) => await DisplayRoll(roll, result, title, []);
-
-        private async Task DisplayRoll(int roll, int result, int modifier, string title) => await DisplayRoll(roll, result, title, [modifier]);
-
         private async Task DisplayRoll(int roll, int result, string title, params IEnumerable<int> modifiers)
         {
             var modString = string.Join(" + ", modifiers);
@@ -124,7 +109,9 @@ namespace CombatPad.Components
 
             rollString += ")";
 
-            _ = await DialogCoordinator.ShowMessageAsync(DialogCoordinatorViewModel, title, rollString);
+            _ = await DialogCoordinator
+                .Instance
+                .ShowMessageAsync(DialogCoordinatorViewModel, title, rollString);
         }
     }
 }
